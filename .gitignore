@@ -429,3 +429,11 @@ FodyWeavers.xsd
 
 # Rider
 .idea/
+
+# Entity Framwork / local dev
+*/Migrations/.lock
+
+#SQLite databas
+*.db
+*.db-shm
+*.db-wal

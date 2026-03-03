@@ -1,5 +1,7 @@
 using bibliotekssystem_notification_service.Data;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
+
 
 namespace bibliotekssystem_notification_service;
 
@@ -15,30 +17,30 @@ public class Program
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
         
-        // Konfiguera DbContext för SQLite, hur ska databasen sättas upp?
-        /*
-         builder.Services.AddDbContext<NotificationDbContext>(options =>
+        // Konfiguera DbContext för SQLite, skapa databasen.
+        builder.Services.AddDbContext<NotificationDbContext>(options =>
         {
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
         }); 
-        */
+        
        
         var app = builder.Build();
         
-        // Databas migrationer vid start, senare skede?
+        // Databas migrerar vid start.
         
-        /*using (var scope = app.Services.CreateScope())
+        using (var scope = app.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
             var dbContext = services.GetRequiredService<NotificationDbContext>();
             dbContext.Database.Migrate();
-        } */
+        } 
         
         
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+            app.MapScalarApiReference();
         }
 
         app.UseHttpsRedirection();
