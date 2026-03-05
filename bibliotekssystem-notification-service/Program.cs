@@ -1,4 +1,5 @@
 using bibliotekssystem_notification_service.Data;
+using bibliotekssystem_notification_service.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -10,10 +11,17 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
-        // Add services to the container.
-
-        builder.Services.AddControllers();
+        
+        // Registrera Controllers
+        builder.Services.AddControllers().AddJsonOptions(options =>
+        {
+            // Undvika oändliga loopar i JSON
+            // (Template => Notifications => Template => ...)
+            options.JsonSerializerOptions.ReferenceHandler =
+                System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        });
+        
+        
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
         
@@ -22,6 +30,18 @@ public class Program
         {
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
         }); 
+        
+        // CORS - Tillåt anrop från MVC-klienten
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+
+            });
+        });
         
        
         var app = builder.Build();
@@ -42,8 +62,12 @@ public class Program
             app.MapOpenApi();
             app.MapScalarApiReference();
         }
+        
 
         app.UseHttpsRedirection();
+        
+        // API-nyckel kontroll
+        app.UseMiddleware<ApiKeyMiddleware>();
 
         app.UseAuthorization();
 

@@ -47,6 +47,7 @@ public class ApiKeyMiddleware
             {
                 error = "Ogiltig Api-nyckel."
             });
+            return;
         }
         
         // Steg 5: Nyckel stämmer -> fortsätt till controllern
