@@ -1,5 +1,6 @@
 using bibliotekssystem_notification_service.Data;
 using bibliotekssystem_notification_service.Middleware;
+using bibliotekssystem_notification_service.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -25,7 +26,7 @@ public class Program
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
         
-        // Konfiguera DbContext för SQLite, skapa databasen.
+        // Konfigurera DbContext för SQLite, skapa databasen.
         builder.Services.AddDbContext<NotificationDbContext>(options =>
         {
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -41,6 +42,12 @@ public class Program
                     .AllowAnyOrigin();
 
             });
+        });
+        
+        //HttpClient för LoanService
+        builder.Services.AddHttpClient<LoanServiceClient>(client =>
+        {
+            client.BaseAddress = new Uri(builder.Configuration["ServiceUrls:LoanService"]!);
         });
         
        

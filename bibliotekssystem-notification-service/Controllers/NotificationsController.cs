@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using bibliotekssystem_notification_service.Models;
 using bibliotekssystem_notification_service.Models.Dto;
+using bibliotekssystem_notification_service.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace bibliotekssystem_notification_service.Controllers;
@@ -11,10 +12,12 @@ namespace bibliotekssystem_notification_service.Controllers;
 public class NotificationsController : ControllerBase
 {
     private readonly NotificationDbContext _context;
+    private readonly LoanServiceClient _loanService;
 
-    public NotificationsController(NotificationDbContext context)
+    public NotificationsController(NotificationDbContext context, LoanServiceClient loanService)
     {
         _context = context;
+        _loanService = loanService;
     }
 
 

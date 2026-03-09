@@ -70,7 +70,7 @@ public class TemplatesController : ControllerBase
         await _context.SaveChangesAsync();
         return NoContent();
     }
-
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var template = await _context.NotificationTemplates.FindAsync(id);
