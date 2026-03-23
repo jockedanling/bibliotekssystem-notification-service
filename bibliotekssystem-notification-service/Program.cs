@@ -35,11 +35,11 @@ public class Program
         // CORS - Tillåt anrop från MVC-klienten
         builder.Services.AddCors(options =>
         {
-            options.AddDefaultPolicy(policy =>
+            options.AddPolicy("ReactAppPolicy", policy =>
             {
-                policy.AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin();
+                policy.WithOrigins("https://loan-service.azurewebsites.net")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
 
             });
         });
@@ -80,7 +80,9 @@ public class Program
 
 
         app.MapControllers();
-
+        
+        app.UseCors("ReactAppPolicy");
+        
         app.Run();
     }
 }
