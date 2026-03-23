@@ -37,7 +37,7 @@ public class Program
         {
             options.AddPolicy("ReactAppPolicy", policy =>
             {
-                policy.WithOrigins("https://loan-service.azurewebsites.net")
+                policy.WithOrigins("http://localhost:5173/")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
 
@@ -78,10 +78,11 @@ public class Program
 
         app.UseAuthorization();
 
-
+        app.UseCors("ReactAppPolicy");
+        
         app.MapControllers();
         
-        app.UseCors("ReactAppPolicy");
+        
         
         app.Run();
     }
