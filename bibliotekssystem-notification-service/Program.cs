@@ -65,12 +65,14 @@ public class Program
 
         app.UseHttpsRedirection();
         
+        app.UseCors("ReactAppPolicy");
+       
         // API-nyckel kontroll
         app.UseMiddleware<ApiKeyMiddleware>();
 
         app.UseAuthorization();
 
-        app.UseCors("ReactAppPolicy");
+        
         
         app.MapControllers();
         

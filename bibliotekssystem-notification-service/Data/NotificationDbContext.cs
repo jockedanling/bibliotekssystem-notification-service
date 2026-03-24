@@ -32,35 +32,35 @@ public class NotificationDbContext : DbContext
                 Id = 1,
                 Type = "LoanDueReminder",
                 Subject = "Påminnelse: Lån förfaller snart",
-                BodyTemplate = "Hej! Ditt lånade material ska lämnas " + " tillbaka senast {DueDate}."
+                BodyTemplate = "Hej! Ditt lånade material ska lämnas tillbaka senast {DueDate}."
             },
             new NotificationTemplate
             {
                 Id = 2,
                 Type = "OverdueNotice",
                 Subject = "Försenad återlämning",
-                BodyTemplate = "Ditt lånade material skulle ha lämnats " + " tillbaka {DueDate}. Vänligen återlämna snarast."
+                BodyTemplate = "Ditt lånade material skulle ha lämnats tillbaka {DueDate}. Vänligen återlämna snarast."
             },
             new NotificationTemplate
             {
                 Id = 3,
                 Type = "ReservationReady",
                 Subject = "Din reservation är redo",
-                BodyTemplate = "Det du reserverade är nu " + " tillgänglig för upphämtning."
+                BodyTemplate = "Det du reserverade är nu tillgängligt för upphämtning."
             },
             new NotificationTemplate
             {
                 Id = 4,
                 Type = "LoanConfirmation",
                 Subject = "Lån bekräftat",
-                BodyTemplate = "Du har lånat ett objekt. " + " Återlämningsdatum: {DueDate}."
+                BodyTemplate = "Du har lånat ett objekt. Återlämningsdatum: {DueDate}."
             },
             new NotificationTemplate
             {
                 Id = 5,
                 Type = "ReturnConfirmation",
                 Subject = "Återlämning bekräftad",
-                BodyTemplate = "Tack! Din återlämning " + " har registrerats."
+                BodyTemplate = "Tack! Din återlämning har registrerats."
             });
     }
 }
