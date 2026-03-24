@@ -1,6 +1,5 @@
 using bibliotekssystem_notification_service.Data;
 using bibliotekssystem_notification_service.Middleware;
-using bibliotekssystem_notification_service.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -44,13 +43,6 @@ public class Program
             });
         });
         
-        //HttpClient för LoanService
-        builder.Services.AddHttpClient<LoanServiceClient>(client =>
-        {
-            client.BaseAddress = new Uri(builder.Configuration["ServiceUrls:LoanService"]!);
-        });
-        
-       
         var app = builder.Build();
         
         // Databas migrerar vid start.
