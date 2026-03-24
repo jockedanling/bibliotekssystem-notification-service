@@ -11,14 +11,14 @@ public class NotificationDbContext : DbContext
     //Varje DbSet = en tabell i databasen
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<NotificationTemplate> NotificationTemplates => Set<NotificationTemplate>();
-
+    
+    // Konfigurera relationen
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Konfigruera relationen
         // En NotificationTemplate har många Notifications
         modelBuilder.Entity<Notification>()
             .HasOne(n => n.Template) // Notification har en template
-            .WithMany(t => t.Notifications) // Template har många notificationer
+            .WithMany(t => t.Notifications) // Template har många notifikationer
             .HasForeignKey(n => n.TemplateId) // Via TemplateId-kolumnen
             .OnDelete(DeleteBehavior.Restrict); // Förhindra radering av mall som används
         

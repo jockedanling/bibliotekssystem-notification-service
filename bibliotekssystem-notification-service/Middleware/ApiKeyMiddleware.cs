@@ -1,10 +1,10 @@
 ﻿namespace bibliotekssystem_notification_service.Middleware;
 
 /*
- Flödet: HTTP-anrop -> Middleware -> Controller -> Database
- Om GET: går direkt vidare
- Om POST/PUT/DELETE utan nyckel: returnerar 401
- Om POST/PUT/DELETE med rätt nyckel: går vidare
+ Middleware som skyddar skrivoperationer med en API-nyckel
+ GET-anrop släpps igneom direkt
+ POST, PUT och delete kräver en giltig i headern X-API-Key
+ Flöde: HTTP-anrop > Middleware > Controller > Databas
  */
 
 public class ApiKeyMiddleware
@@ -27,7 +27,7 @@ public class ApiKeyMiddleware
             return;
         }
         
-        // Steg 2: Kontrollera att X-Api-Key-headern finns
+        // Steg 2: Kontrollera att X-Api-Key-headern finns -> annars 401
         if (!context.Request.Headers.TryGetValue(ApiKeyHeaderName, out var extractedApiKey))
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
@@ -39,7 +39,7 @@ public class ApiKeyMiddleware
         var configuration = context.RequestServices.GetRequiredService<IConfiguration>();
         var apiKey = configuration.GetValue<string>("ApiSettings:ApiKey");
         
-        // Steg 4: Jämför nycklarna
+        // Steg 4: Jämför nycklarna -> annars 401
         if (string.IsNullOrEmpty(apiKey) || !apiKey.Equals(extractedApiKey))
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;

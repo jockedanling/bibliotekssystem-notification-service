@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 
 namespace bibliotekssystem_notification_service.Controllers;
-
+/*
+ Hantera CRUD-operationer för notifieringsmallar.
+ GET-anrop kräver ingen API-nyckel.
+ POST, PUT och DELETE kräver giltig API-nyckel.
+ */
 [ApiController]
 [Route("api/[controller]")]
 public class TemplatesController : ControllerBase
