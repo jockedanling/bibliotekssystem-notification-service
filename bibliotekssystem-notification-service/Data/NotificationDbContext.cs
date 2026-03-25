@@ -61,6 +61,28 @@ public class NotificationDbContext : DbContext
                 Type = "ReturnConfirmation",
                 Subject = "Återlämning bekräftad",
                 BodyTemplate = "Tack! Din återlämning har registrerats."
-            });
+            },
+            new NotificationTemplate
+            {
+                Id = 6,
+                Type = "AdminCatalogChange",
+                Subject ="Ändring i hantera katalog",
+                BodyTemplate = "En förändring har gjorts i hantera katalog."
+            },
+            new NotificationTemplate
+            {
+                Id = 7,
+                Type = "AdminUserChange",
+                Subject = "Ändring i hantera användare",
+                BodyTemplate = "En förändring har gjorts i hantera användare."
+            },
+            new NotificationTemplate
+            {
+                Id = 8,
+                Type = "AdminReviewChange",
+                Subject = "Ändring i hantera recensioner",
+                BodyTemplate = "En förändring har gjorts i hantera recensioner."
+            }
+            );
     }
 }
