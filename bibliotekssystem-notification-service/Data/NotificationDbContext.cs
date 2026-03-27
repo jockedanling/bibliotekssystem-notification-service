@@ -82,6 +82,27 @@ public class NotificationDbContext : DbContext
                 Type = "AdminReviewChange",
                 Subject = "Ändring i hantera recensioner",
                 BodyTemplate = "En förändring har gjorts i hantera recensioner."
+            },
+            new NotificationTemplate
+            {
+                Id = 9,
+                Type = "AdminLoanChange",
+                Subject = "Ändring i hantera lån",
+                BodyTemplate = "En förändring har gjorts i hantera lån."
+            },
+            new NotificationTemplate
+            {
+                Id = 10,
+                Type = "ReviewConfirmation",
+                Subject = "Skapat en recension",
+                BodyTemplate = "Du har skapat en recension."
+            },
+            new NotificationTemplate
+            {
+                Id = 11,
+                Type = "ReviewRemove",
+                Subject = "Raderat en recension",
+                BodyTemplate = "Du har tagit bort en recension."
             }
             );
     }
